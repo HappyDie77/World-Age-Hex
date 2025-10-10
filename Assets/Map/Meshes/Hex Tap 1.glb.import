@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dy4u3sp4bo2mk"
-path="res://.godot/imported/Hex Tap 1.glb-5fbd50bf0d0546f792e231e9c304cf68.scn"
+path="res://.godot/imported/Hex Tap 1.glb-4403a56648651f4797d803e17d56913c.scn"
 
 [deps]
 
-source_file="res://Assests/Map/Meshes/Hex Tap 1.glb"
-dest_files=["res://.godot/imported/Hex Tap 1.glb-5fbd50bf0d0546f792e231e9c304cf68.scn"]
+source_file="res://Assets/Map/Meshes/Hex Tap 1.glb"
+dest_files=["res://.godot/imported/Hex Tap 1.glb-4403a56648651f4797d803e17d56913c.scn"]
 
 [params]
 

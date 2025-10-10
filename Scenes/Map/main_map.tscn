@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1aonj1bas5vs" path="res://Scripts/Map/main_map.gd" id="1_6boei"]
 [ext_resource type="PackedScene" uid="uid://c1dtdfg3q5cms" path="res://Scenes/Map/Procedurally Hex 2d.tscn" id="2_p7yu3"]
-[ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assests/Map/Hex Scenes/Environment 1.tscn" id="3_uk5l4"]
+[ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assets/Map/Hex Scenes/Environment 1.tscn" id="3_uk5l4"]
 [ext_resource type="PackedScene" uid="uid://ccy5tqwv4btvr" path="res://Scenes/camera.tscn" id="4_lf2k3"]
 
 [node name="Main Map" type="Node3D"]

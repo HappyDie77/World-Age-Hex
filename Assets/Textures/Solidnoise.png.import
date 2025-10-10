@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3xjfnegktap2"
-path.s3tc="res://.godot/imported/aaaaaaaa.png-006b5f2588ad79626003f484636742d3.s3tc.ctex"
+uid="uid://dwr4koi4angjy"
+path.s3tc="res://.godot/imported/Solidnoise.png-30ae2a06d8aa52d7fa6a1e48712769f1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assests/Textures/aaaaaaaa.png"
-dest_files=["res://.godot/imported/aaaaaaaa.png-006b5f2588ad79626003f484636742d3.s3tc.ctex"]
+source_file="res://Assets/Textures/Solidnoise.png"
+dest_files=["res://.godot/imported/Solidnoise.png-30ae2a06d8aa52d7fa6a1e48712769f1.s3tc.ctex"]
 
 [params]
 

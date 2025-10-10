@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwr4koi4angjy"
-path.s3tc="res://.godot/imported/Solidnoise.png-2813d6618365ef42e704de645ab68719.s3tc.ctex"
+uid="uid://csj3ljar06x4r"
+path.s3tc="res://.godot/imported/retina_freebie-detail-image1_1417408650013.jpg-e997234631625ef2505c19cfd84e56d0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assests/Textures/Solidnoise.png"
-dest_files=["res://.godot/imported/Solidnoise.png-2813d6618365ef42e704de645ab68719.s3tc.ctex"]
+source_file="res://Assets/Textures/retina_freebie-detail-image1_1417408650013.jpg"
+dest_files=["res://.godot/imported/retina_freebie-detail-image1_1417408650013.jpg-e997234631625ef2505c19cfd84e56d0.s3tc.ctex"]
 
 [params]
 
