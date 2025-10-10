@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://c1dtdfg3q5cms"]
+[gd_scene load_steps=3 format=3 uid="uid://c1dtdfg3q5cms"]
 
-[node name="ProcedurallyHex2d" type="Node"]
+[ext_resource type="Script" uid="uid://syicmphksnxt" path="res://Scripts/Map/procedurally_hex_2d.gd" id="1_dpr1j"]
+[ext_resource type="PackedScene" uid="uid://bf1sg6yidsodr" path="res://Scenes/Map/Hex_1.tscn" id="2_a6fsl"]
+
+[node name="ProcedurallyHex3d" type="Node3D"]
+script = ExtResource("1_dpr1j")
+map_radius = 5
+hex_scene = ExtResource("2_a6fsl")

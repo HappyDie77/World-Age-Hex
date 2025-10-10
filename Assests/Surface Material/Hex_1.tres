@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dredh5xipu0kh"]
+
+[ext_resource type="Texture2D" uid="uid://3xjfnegktap2" path="res://Assests/Textures/aaaaaaaa.png" id="1_k5uo7"]
+
+[resource]
+albedo_color = Color(0.8666667, 0.9411765, 0.3764706, 1)
+albedo_texture = ExtResource("1_k5uo7")
+uv1_scale = Vector3(-1.94, -1.94, -1.94)
+grow_amount = 0.736

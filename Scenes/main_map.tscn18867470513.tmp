@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://6g4ach6yn206"]
+
+[ext_resource type="PackedScene" uid="uid://c1dtdfg3q5cms" path="res://Scenes/Map/Procedurally Hex 2d.tscn" id="1_ka2pl"]
+[ext_resource type="Script" uid="uid://d1aonj1bas5vs" path="res://Scripts/Map/main_map.gd" id="1_tvgjd"]
+[ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assests/Map/Hex Scenes/Environment 1.tscn" id="2_k5tye"]
+[ext_resource type="PackedScene" uid="uid://ccy5tqwv4btvr" path="res://Scenes/camera.tscn" id="4_tvgjd"]
+[ext_resource type="PackedScene" uid="uid://bf1sg6yidsodr" path="res://Assests/Map/Hex Scenes/Hex_1.tscn" id="5_nfd1w"]
+
+[node name="Main Map" type="Node3D"]
+script = ExtResource("1_tvgjd")
+
+[node name="ProcedurallyHex2d" parent="." instance=ExtResource("1_ka2pl")]
+
+[node name="Environment1" parent="." instance=ExtResource("2_k5tye")]
+
+[node name="Camera" parent="." instance=ExtResource("4_tvgjd")]
+
+[node name="Hex_1" parent="." instance=ExtResource("5_nfd1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4869243, -1.1502044, -0.8318882)

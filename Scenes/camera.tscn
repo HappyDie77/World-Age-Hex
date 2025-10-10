@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccy5tqwv4btvr"]
+
+[ext_resource type="Script" uid="uid://dfp8bk4clccg0" path="res://Scripts/camera.gd" id="1_375tr"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7pnm2"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 10.5
+dof_blur_near_enabled = true
+dof_blur_near_distance = 6.2
+dof_blur_amount = 0.01
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_375tr")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.65470123, 0.75588775, 0, -0.75588775, 0.65470123, 0, 0, 0)
+collision_mask = 0
+
+[node name="Main Camera" type="Camera3D" parent="SpringArm3D"]
+attributes = SubResource("CameraAttributesPractical_7pnm2")
+fov = 70.0
+
+[node name="RayCast3D" type="RayCast3D" parent="SpringArm3D/Main Camera"]
+target_position = Vector3(0, 0, -1000)
