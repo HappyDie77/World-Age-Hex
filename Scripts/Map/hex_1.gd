@@ -4,7 +4,9 @@ extends Node3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var hex_data: Hexdata
 var highlight_mat: StandardMaterial3D = null
+var original_color: Color = Color(1,1,1,1)  # store the original albedo
 var tween: Tween
 
 func _ready():
@@ -15,10 +17,12 @@ func _ready():
 		if base_mat:
 			highlight_mat = base_mat.duplicate()
 			mesh_instance_3d.set_surface_override_material(0, highlight_mat)
-			highlight_mat.albedo_color = Color("ddf060") # starting color
+			original_color = highlight_mat.albedo_color  # save the original color
 
 func highlight(active: bool) -> void:
-	# simple: show/hide the selector above the hex
+	print(hex_data.biome)
+	print(hex_data.has_river)
+	# Show/hide selector above hex
 	if hex_tap:
 		hex_tap.visible = active
 		animation_player.play("Select")
@@ -35,13 +39,12 @@ func highlight(active: bool) -> void:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
 
-	var start_color = highlight_mat.albedo_color
 	var target_color: Color
 
 	if active:
 		target_color = Color(1.353, 1.353, 1.353, 1.0)  # highlight bright
 	else:
-		target_color = Color("ddf060")        # base color
+		target_color = original_color  # restore saved original color
 
-	# Animate albedo_color’s r,g,b,a toward target
+	# Animate albedo_color toward target
 	tween.tween_property(highlight_mat, "albedo_color", target_color, 0.3)

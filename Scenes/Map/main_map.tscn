@@ -1,9 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://6g4ach6yn206"]
+[gd_scene load_steps=11 format=3 uid="uid://6g4ach6yn206"]
 
 [ext_resource type="Script" uid="uid://d1aonj1bas5vs" path="res://Scripts/Map/main_map.gd" id="1_6boei"]
 [ext_resource type="PackedScene" uid="uid://c1dtdfg3q5cms" path="res://Scenes/Map/Procedurally Hex 2d.tscn" id="2_p7yu3"]
 [ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assets/Map/Hex Scenes/Environment 1.tscn" id="3_uk5l4"]
 [ext_resource type="PackedScene" uid="uid://ccy5tqwv4btvr" path="res://Scenes/camera.tscn" id="4_lf2k3"]
+[ext_resource type="Texture2D" uid="uid://dwr4koi4angjy" path="res://Assets/Textures/Solidnoise.png" id="5_p7yu3"]
+[ext_resource type="Shader" uid="uid://bvaerqfvibqcc" path="res://Scripts/Shaders/Water.gdshader" id="6_uk5l4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6boei"]
+top_radius = 100.0
+bottom_radius = 0.0
+height = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6boei"]
+disable_ambient_light = true
+albedo_color = Color(0.8460897, 0.7639582, 0.50981057, 1)
+albedo_texture = ExtResource("5_p7yu3")
+refraction_scale = -0.06
+uv1_scale = Vector3(26.05, 26.05, 26.05)
+uv1_triplanar_sharpness = 0.00016107249
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uk5l4"]
+size = Vector2(200, 200)
+subdivide_width = 400
+subdivide_depth = 200
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dao4b"]
+render_priority = 0
+shader = ExtResource("6_uk5l4")
+shader_parameter/out_color = Color(0.7082074, 0.8037772, 0.9475835, 1)
+shader_parameter/amount = 0.20000000298023
+shader_parameter/speed = 1.00000004424012
+shader_parameter/beer_factor = 0.2
+shader_parameter/metallic = 0.6
+shader_parameter/specular = 4.0
+shader_parameter/roughness = 0.4
+shader_parameter/emission = Vector3(0, 0.01, 0)
 
 [node name="Main Map" type="Node3D"]
 script = ExtResource("1_6boei")
@@ -14,3 +46,13 @@ map_radius = 25
 [node name="Environment1" parent="." instance=ExtResource("3_uk5l4")]
 
 [node name="Camera" parent="." instance=ExtResource("4_lf2k3")]
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.472, -0.3, -2.105)
+mesh = SubResource("CylinderMesh_6boei")
+surface_material_override/0 = SubResource("StandardMaterial3D_6boei")
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00067305565, -0.10000024, -0.006568432)
+mesh = SubResource("PlaneMesh_uk5l4")
+surface_material_override/0 = SubResource("ShaderMaterial_dao4b")

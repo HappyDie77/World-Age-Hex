@@ -5,10 +5,10 @@ extends Node3D
 @onready var ray_cast_3d: RayCast3D = $"SpringArm3D/Main Camera/RayCast3D"
 
 @export var zoom_speed: float = 1.0
-@export var min_zoom: float = 3.0
-@export var max_zoom: float = 8.0
+@export var min_zoom: float = 3.5
+@export var max_zoom: float = 80.0
 @export var zoom_smoothness: float = 6.0  # Higher = smoother
-@export var move_speed: float = 5.0
+@export var move_speed: float = 25.0
 @export var sprint_multiplier: float = 2.0
 
 var target_zoom: float
@@ -34,7 +34,9 @@ func _physics_process(delta: float) -> void:
 		var speed = move_speed
 		if Input.is_action_pressed("shift"):
 			speed *= sprint_multiplier
-		translate_object_local(move_dir * speed * delta)
+		var global_move = (transform.basis * move_dir).normalized()
+		global_move.y = 0.0  # flatten movement
+		global_position += global_move * speed * delta
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -46,7 +48,6 @@ func _input(event: InputEvent) -> void:
 			target_zoom = min(max_zoom, target_zoom + zoom_speed)
 
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("pressed")
 			hex_movement()
 
 
@@ -70,7 +71,6 @@ func hex_movement():
 
 		# Change highlight if we hit a new object
 		if target:
-			print("hit")
 			# Turn off old selector
 			if last_selected and last_selected.has_method("highlight"):
 				last_selected.highlight(false)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=4 uid="uid://bf1sg6yidsodr"]
 
-[ext_resource type="Script" uid="uid://v2nw8t0sbp6p" path="res://Scripts/Map/hex_1.gd" id="1_3rahg"]
-[ext_resource type="ArrayMesh" uid="uid://cbltq4vnk51m0" path="res://Assets/Map/Meshes/Hex 1.obj" id="2_uepfd"]
-[ext_resource type="Texture2D" uid="uid://3xjfnegktap2" path="res://Assets/Textures/aaaaaaaa.png" id="3_k162v"]
+[ext_resource type="Script" uid="uid://v2nw8t0sbp6p" path="res://Scripts/Map/hex_1.gd" id="1_4co4g"]
+[ext_resource type="ArrayMesh" uid="uid://cbltq4vnk51m0" path="res://Assets/Map/Meshes/Hex 1.obj" id="2_fkuy1"]
+[ext_resource type="Texture2D" uid="uid://3xjfnegktap2" path="res://Assets/Textures/aaaaaaaa.png" id="3_5d481"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eevkb"]
 
@@ -44,7 +44,7 @@ metallic = 0.52
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3rahg"]
 albedo_color = Color(0.8666667, 0.9411765, 0.3764706, 1)
-albedo_texture = ExtResource("3_k162v")
+albedo_texture = ExtResource("3_5d481")
 uv1_scale = Vector3(-1.94, -1.94, -1.94)
 grow_amount = 0.736
 
@@ -92,7 +92,7 @@ _data = {
 }
 
 [node name="Hex_1" type="Node3D"]
-script = ExtResource("1_3rahg")
+script = ExtResource("1_4co4g")
 
 [node name="Hex Tap" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.65, 0, 0, 0, 0.187, 0, 0, 0, 0.65, 0, 0.34008515, 0)
@@ -103,7 +103,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uepfd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.49, 0, -7.398795e-08, 0, 0.326, 0, 7.398795e-08, 0, -0.49, 0, 0, 0)
-mesh = ExtResource("2_uepfd")
+mesh = ExtResource("2_fkuy1")
 surface_material_override/0 = SubResource("StandardMaterial3D_3rahg")
 surface_material_override/1 = SubResource("StandardMaterial3D_k162v")
 
