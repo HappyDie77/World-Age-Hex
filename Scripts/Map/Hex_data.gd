@@ -7,3 +7,4 @@ class_name Hexdata
 @export var biome: String = "plains"
 @export var region_id: int = -1
 @export var has_river: bool = false
+@export var has_addon: bool = false

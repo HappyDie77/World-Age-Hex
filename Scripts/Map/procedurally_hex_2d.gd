@@ -39,16 +39,36 @@ func setup_noise():
 	biome_noise.frequency = 1.0 / biome_noise_scale
 
 func load_biome_scenes():
-	biome_scenes["plains"] = [load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")]
-	biome_scenes["forest"] = [load("res://Scenes/Map/Hexes/Forest/Hex_Forest_1.tscn")]
-	biome_scenes["charred"] = [load("res://Scenes/Map/Hexes/Charred/Hex_Charred_1.tscn")]
-	biome_scenes["mountain"] = [load("res://Scenes/Map/Hexes/mountain/Hex_Mountain_1.tscn")]
-	biome_scenes["tundra"] = [load("res://Scenes/Map/Hexes/Tundra/Hex_Tundra_1.tscn")]
-	biome_scenes["desert"] = [load("res://Scenes/Map/Hexes/Desert/Hex_Desert_1.tscn")]
-	biome_scenes["snowy"] = [load("res://Scenes/Map/Hexes/Snowy/Hex_Snowy_1.tscn")]
-	biome_scenes["void"] = [load("res://Scenes/Map/Hexes/Void/Hex_Void_1.tscn")]
-	biome_scenes["river"] = [load("res://Scenes/Map/Hexes/Hex_water_1.tscn")]
-	biome_scenes["water"] = [load("res://Scenes/Map/Hexes/Hex_water_1.tscn")]
+	biome_scenes["plains"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+		]
+	biome_scenes["forest"] = [
+		load("res://Scenes/Map/Hexes/Forest/Hex_Forest_1.tscn")
+		]
+	biome_scenes["charred"] = [
+		load("res://Scenes/Map/Hexes/Charred/Hex_Charred_1.tscn")
+		]
+	biome_scenes["mountain"] = [
+		load("res://Scenes/Map/Hexes/mountain/Hex_Mountain_1.tscn")
+		]
+	biome_scenes["tundra"] = [
+		load("res://Scenes/Map/Hexes/Tundra/Hex_Tundra_1.tscn")
+		]
+	biome_scenes["desert"] = [
+		load("res://Scenes/Map/Hexes/Desert/Hex_Desert_1.tscn")
+		]
+	biome_scenes["snowy"] = [
+		load("res://Scenes/Map/Hexes/Snowy/Hex_Snowy_1.tscn")
+		]
+	biome_scenes["void"] = [
+		load("res://Scenes/Map/Hexes/Void/Hex_Void_1.tscn")
+		]
+	biome_scenes["river"] = [
+		load("res://Scenes/Map/Hexes/Hex_water_1.tscn")
+		]
+	biome_scenes["water"] = [
+		load("res://Scenes/Map/Hexes/Hex_water_1.tscn")
+		]
 
 func generate_hex_map():
 	for q in range(-map_radius, map_radius + 1):
