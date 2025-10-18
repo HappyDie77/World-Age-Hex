@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="World Age Hex"
+run/main_scene="uid://6g4ach6yn206"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+TimeManager="*res://Scripts/Map/Time_manager.gd"
 
 [input]
 

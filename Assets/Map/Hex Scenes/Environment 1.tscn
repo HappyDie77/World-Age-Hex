@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c256ctxua2sky"]
+[gd_scene load_steps=6 format=3 uid="uid://c256ctxua2sky"]
+
+[ext_resource type="Script" uid="uid://dnupl75xu4gbt" path="res://Scripts/environment_1.gd" id="1_qqgwc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pfjfu"]
 sky_top_color = Color(0.192157, 0.282353, 0.509804, 1)
@@ -32,7 +34,7 @@ fog_density = 1.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.02
 volumetric_fog_albedo = Color(0.540595, 0.45478165, 0.17906669, 1)
-volumetric_fog_emission = Color(0.9999996, 0.9684896, 0.53521204, 1)
+volumetric_fog_emission = Color(1, 0.96862745, 0.53333336, 1)
 volumetric_fog_emission_energy = 0.2
 volumetric_fog_gi_inject = 2.0
 volumetric_fog_anisotropy = 0.3
@@ -47,6 +49,7 @@ adjustment_saturation = 1.05
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_xh04s"]
 
 [node name="Environment1" type="Node3D"]
+script = ExtResource("1_qqgwc")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_putlg")

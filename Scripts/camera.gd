@@ -3,6 +3,9 @@ extends Node3D
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var main_camera: Camera3D = $"SpringArm3D/Main Camera"
 @onready var ray_cast_3d: RayCast3D = $"SpringArm3D/Main Camera/RayCast3D"
+@onready var camera_light: OmniLight3D = $"SpringArm3D/Camera light"
+@onready var camera_light_2: SpotLight3D = $"SpringArm3D/Camera light2"
+
 
 @export var zoom_speed: float = 1.0
 @export var min_zoom: float = 3.5
@@ -13,6 +16,7 @@ extends Node3D
 
 var target_zoom: float
 var last_selected: Node3D = null
+var is_currently_day = true
 
 func _ready() -> void:
 	target_zoom = 6
@@ -37,6 +41,23 @@ func _physics_process(delta: float) -> void:
 		var global_move = (transform.basis * move_dir).normalized()
 		global_move.y = 0.0  # flatten movement
 		global_position += global_move * speed * delta
+
+	if TimeManager.is_daytime(Global.current_minutes) and !is_currently_day:
+		# switch to day lighting
+		start_day_tween()
+		is_currently_day = true
+	elif TimeManager.is_nighttime(Global.current_minutes) and is_currently_day:
+		# switch to night lighting
+		start_night_tween()
+		is_currently_day = false
+
+func start_day_tween():
+	camera_light.visible = false # in start_day_tween()
+	camera_light_2.visible = false
+
+func start_night_tween():
+	camera_light.visible = true  # in start_night_tween()
+	camera_light_2.visible = true
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

@@ -24,3 +24,27 @@ fov = 70.0
 
 [node name="RayCast3D" type="RayCast3D" parent="SpringArm3D/Main Camera"]
 target_position = Vector3(0, 0, -1000)
+
+[node name="Camera light" type="OmniLight3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0)
+visible = false
+light_color = Color(0.93333334, 0.5647059, 0.21568628, 1)
+light_energy = 0.3
+light_indirect_energy = 3.0
+light_volumetric_fog_energy = 3.0
+light_size = 1.0
+light_specular = 1.2
+omni_range = 15.0
+
+[node name="Camera light2" type="SpotLight3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999404, 0.0034731328, 0, -0.0034731328, 0.99999404, 0, 0, 0)
+visible = false
+light_color = Color(0.2679124, 0.41426688, 0.7390448, 1)
+light_energy = 4.0
+light_indirect_energy = 3.0
+light_volumetric_fog_energy = 3.0
+light_size = 1.0
+light_specular = 1.2
+spot_range = 16.059
+spot_angle = 42.0
+spot_angle_attenuation = 0.9659365

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d1pku3rfyvmjt"]
+[gd_scene load_steps=2 format=3 uid="uid://d1pku3rfyvmjt"]
+
+[ext_resource type="Script" uid="uid://bhnbyufauptkm" path="res://Scripts/hud.gd" id="1_sprlj"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -7,19 +9,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sprlj")
 
 [node name="Hud" type="CanvasLayer" parent="."]
-
-[node name="End" type="Button" parent="Hud"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -25.0
-offset_top = 40.0
-offset_right = 25.0
-offset_bottom = 71.0
-grow_horizontal = 2
-text = "Sleep"
 
 [node name="Time" type="Label" parent="Hud"]
 anchors_preset = 5
@@ -42,3 +34,92 @@ offset_right = 85.5
 offset_bottom = 39.0
 grow_horizontal = 2
 text = "9/100"
+
+[node name="Buttons" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Move 1 Hex" type="Button" parent="Hud/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = -247.5
+offset_right = -79.0
+offset_bottom = -216.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Move 1 Hex"
+
+[node name="Combat encounter" type="Button" parent="Hud/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 38.5
+offset_top = -247.5
+offset_right = 191.5
+offset_bottom = -216.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Combat encounter"
+
+[node name="Event" type="Button" parent="Hud/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -247.5
+offset_right = 34.0
+offset_bottom = -216.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Event"
+
+[node name="Rest" type="Button" parent="Hud/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -282.5
+offset_right = 21.0
+offset_bottom = -251.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Rest"
+
+[node name="Sleep" type="Button" parent="Hud/Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -247.5
+offset_right = -23.0
+offset_bottom = -216.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sleep"
+
+[connection signal="pressed" from="Hud/Buttons/Move 1 Hex" to="." method="_on_move_1_hex_pressed"]
+[connection signal="pressed" from="Hud/Buttons/Combat encounter" to="." method="_on_combat_encounter_pressed"]
+[connection signal="pressed" from="Hud/Buttons/Event" to="." method="_on_event_pressed"]
+[connection signal="pressed" from="Hud/Buttons/Rest" to="." method="_on_rest_pressed"]
+[connection signal="pressed" from="Hud/Buttons/Sleep" to="." method="_on_sleep_pressed"]

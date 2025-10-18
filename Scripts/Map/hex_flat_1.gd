@@ -30,9 +30,9 @@ func setup(hexdata: Hexdata) -> void:
 	self.hex_data.is_flat = true
 
 func highlight(active: bool) -> void:
-	print(hex_data.biome)
-	print(hex_data.has_river)
-	print(hex_data.is_flat)
+	#print(hex_data.biome)
+	#print(hex_data.has_river)
+	#print(hex_data.is_flat)
 	# Show/hide selector above hex
 	if hex_tap:
 		hex_tap.visible = active
