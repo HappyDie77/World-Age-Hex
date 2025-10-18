@@ -19,9 +19,20 @@ func _ready():
 			mesh_instance_3d.set_surface_override_material(0, highlight_mat)
 			original_color = highlight_mat.albedo_color  # save the original color
 
+func is_flat_hex() -> bool:
+	return hex_data and hex_data.is_flat
+
+func can_spawn_addon() -> bool:
+	return is_flat_hex() and not hex_data.has_river
+
+func setup(hexdata: Hexdata) -> void:
+	self.hex_data = hexdata
+	self.hex_data.is_flat = true
+
 func highlight(active: bool) -> void:
 	print(hex_data.biome)
 	print(hex_data.has_river)
+	print(hex_data.is_flat)
 	# Show/hide selector above hex
 	if hex_tap:
 		hex_tap.visible = active

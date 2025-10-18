@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://dckmq6hgkyc13"]
 
-[ext_resource type="Script" uid="uid://v2nw8t0sbp6p" path="res://Scripts/Map/hex_1.gd" id="1_wjpr6"]
+[ext_resource type="Script" uid="uid://v2nw8t0sbp6p" path="res://Scripts/Map/hex_flat_1.gd" id="1_wjpr6"]
 [ext_resource type="ArrayMesh" uid="uid://cbltq4vnk51m0" path="res://Assets/Map/Meshes/Hex 1.obj" id="2_vhnq7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eevkb"]

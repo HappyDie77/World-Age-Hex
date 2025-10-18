@@ -2,20 +2,24 @@ extends Node3D
 
 @export var map_radius: int = 100
 @export var hex_size: float = 1.0
+@export var addon_size: float = 1.0
 @export var hex_scene: PackedScene
 @export var noise_scale: float = 25.0
-@export var biome_noise_scale: float = 45.0  # Different scale for biome variety
+@export var biome_noise_scale: float = 85.0  # Different scale for biome variety
 @export var noise_seed: int = 123
 @export var nr_regions: int = 4
 @export var river_length: int = 100
 
+var ready_hexes = 0
 var hex_data: Dictionary = {}
 var perlin_noise: FastNoiseLite
 var biome_noise: FastNoiseLite  # Second noise layer for biome clustering
 var biome_scenes: Dictionary = {}
+var addon_scenes: Dictionary = {}
 
 func _ready():
 	load_biome_scenes()
+	load_addon_scenes()
 	randomize()
 	noise_seed = randi_range(1, 1000)
 	setup_noise()
@@ -37,6 +41,26 @@ func setup_noise():
 	biome_noise.seed = noise_seed + 1000
 	biome_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	biome_noise.frequency = 1.0 / biome_noise_scale
+
+func load_addon_scenes():
+	addon_scenes["dungeon_low"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
+	addon_scenes["shop_gear"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
+	addon_scenes["event_roll"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
+	addon_scenes["event_combat"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
+	addon_scenes["quest_low"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
+	addon_scenes["shop_relic"] = [
+		load("res://Scenes/Map/Hexes/Plains/Hex_Plains_1.tscn")
+	]
 
 func load_biome_scenes():
 	biome_scenes["plains"] = [
@@ -175,12 +199,16 @@ func spawn_hex(hex: Hexdata):
 	var scenes_for_biome = biome_scenes[hex.biome]
 	var random_scene = scenes_for_biome[randi() % scenes_for_biome.size()]
 	var hex_instance = random_scene.instantiate()
+	hex_instance.setup(hex)
 	var world_pos = hex_to_world(hex.q, hex.r)
 	
 	hex_instance.position = Vector3(world_pos.x, 0, world_pos.y)
 	hex_instance.scale = Vector3.ONE * hex_size
 	hex_instance.hex_data = hex
-	
+
+	if hex_instance.can_spawn_addon():
+		trace_addon(hex)
+
 	add_child(hex_instance)
 
 func generate_regions():
@@ -213,6 +241,42 @@ func generate_regions():
 			if neighbor.region_id == -1 and neighbor.elevation > 0.18:
 				neighbor.region_id = current_hex.region_id
 				queue.append(neighbor_key)
+
+func generate_addon():
+	for key in hex_data:
+		var hex = hex_data[key]
+		if hex.is_flat:
+			trace_addon(hex)
+
+func trace_addon(hex: Hexdata):
+	var current = hex
+	var has = randi_range(0, 30)
+	var addon_type = randi_range(1, 6)
+
+	if has == 0:
+		return
+	elif has == 30:
+		if addon_type == 1:
+			current.addon_type = "dungeon_low"
+		if addon_type == 2:
+			current.addon_type = "shop_gear"
+		if addon_type == 3:
+			current.addon_type = "event_roll"
+		if addon_type == 4:
+			current.addon_type = "event_combat"
+		if addon_type == 5:
+			current.addon_type = "quest_low"
+		if addon_type == 6:
+			current.addon_type = "shop_relic"
+
+		var scenes_for_addon = addon_scenes[current.addon_type]
+		var random_scene = scenes_for_addon[randi() % scenes_for_addon.size()]
+		var addon_instance = random_scene.instantiate()
+		var world_pos = hex_to_world(current.q, current.r)
+		addon_instance.position = Vector3(world_pos.x, 0.2, world_pos.y)
+		addon_instance.scale = Vector3.ONE * addon_size
+
+		add_child(addon_instance)
 
 func generate_rivers():
 	for key in hex_data:
