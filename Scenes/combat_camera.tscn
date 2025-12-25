@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccy5tqwv4btvr"]
+[gd_scene load_steps=3 format=3 uid="uid://bmxqadhvu8gha"]
 
-[ext_resource type="Script" uid="uid://dfp8bk4clccg0" path="res://Scripts/camera.gd" id="1_375tr"]
+[ext_resource type="Script" uid="uid://b6qfkg6oet85u" path="res://Scripts/Combat/combat_camera.gd" id="1_v4ejg"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7pnm2"]
 dof_blur_far_enabled = true
@@ -11,16 +11,16 @@ dof_blur_amount = 0.01
 
 [node name="Camera" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9916914, 0.12863982, 0, -0.12863982, 0.9916914, 0, 0, 0)
-script = ExtResource("1_375tr")
+script = ExtResource("1_v4ejg")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.66913056, 0.74314487, 0, -0.74314487, 0.66913056, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.77162457, 0.63607824, 0, -0.63607824, 0.77162457, 0, 0, 0)
 collision_mask = 0
 margin = 0.0
 
 [node name="Main Camera" type="Camera3D" parent="SpringArm3D"]
 attributes = SubResource("CameraAttributesPractical_7pnm2")
-fov = 70.0
+fov = 50.0
 
 [node name="RayCast3D" type="RayCast3D" parent="SpringArm3D/Main Camera"]
 target_position = Vector3(0, 0, -1000)

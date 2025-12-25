@@ -7,3 +7,11 @@ var time_max: int = 1440
 var world_event_interval: int = 20
 var max_energy: int = 40
 var current_energy: int = 0
+
+var turn_count: int = 0
+var player_turn: bool = false
+var player_end: bool = false
+
+var actions_entered: bool = false
+
+var units_inventory: Array = []

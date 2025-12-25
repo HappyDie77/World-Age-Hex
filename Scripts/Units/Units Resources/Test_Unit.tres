@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitTemplate" load_steps=4 format=3 uid="uid://ced7nboim5aju"]
+
+[ext_resource type="Script" uid="uid://cyfy8s7b2aluj" path="res://Scripts/Units/action.gd" id="1_2m57x"]
+[ext_resource type="Script" uid="uid://kl6xogwt3wpo" path="res://Scripts/Units/unit_template.gd" id="2_cvll0"]
+[ext_resource type="Resource" uid="uid://egc4s7v64xa7" path="res://Scripts/Units/Actions Resources/Slash.tres" id="2_uvoic"]
+
+[resource]
+script = ExtResource("2_cvll0")
+unit_name = "Test_Unit_Ally"
+vitality = 15
+intelligence = 3
+agility = 2
+default_attacks = Array[ExtResource("1_2m57x")]([ExtResource("2_uvoic")])
+metadata/_custom_type_script = "uid://kl6xogwt3wpo"

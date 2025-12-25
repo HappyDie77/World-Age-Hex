@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitTemplate" load_steps=3 format=3 uid="uid://dc3d26a7vw2ro"]
+
+[ext_resource type="Script" uid="uid://cyfy8s7b2aluj" path="res://Scripts/Units/action.gd" id="1_ksvns"]
+[ext_resource type="Script" uid="uid://kl6xogwt3wpo" path="res://Scripts/Units/unit_template.gd" id="2_b2nva"]
+
+[resource]
+script = ExtResource("2_b2nva")
+unit_name = "Test_Unit_Enemy"
+faction_type = 1
+metadata/_custom_type_script = "uid://kl6xogwt3wpo"

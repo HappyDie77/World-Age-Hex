@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://ltfw26qc6x5m"]
+
+[ext_resource type="Material" uid="uid://dredh5xipu0kh" path="res://Assets/Surface Material/Hex_1.tres" id="1_d68v5"]
+[ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assets/Map/Hex Scenes/Environment 1.tscn" id="1_qj32h"]
+[ext_resource type="PackedScene" uid="uid://bmxqadhvu8gha" path="res://Scenes/combat_camera.tscn" id="2_qj32h"]
+[ext_resource type="PackedScene" uid="uid://c8wy6x6cfpoww" path="res://Scenes/UI/combat_hud.tscn" id="3_d68v5"]
+[ext_resource type="PackedScene" uid="uid://ci2ajqnnv7drb" path="res://Scenes/Combat/combat_manager.tscn" id="5_y8h3g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_35ssq"]
+lightmap_size_hint = Vector2i(104, 66)
+size = Vector3(10, 1, 10)
+
+[node name="MainZone" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_35ssq")
+surface_material_override/0 = ExtResource("1_d68v5")
+
+[node name="Environment1" parent="." instance=ExtResource("1_qj32h")]
+
+[node name="Camera" parent="." instance=ExtResource("2_qj32h")]
+transform = Transform3D(0.93553674, -0.0018494994, 0.35322523, 1.7851932e-10, 0.9999861, 0.005235962, -0.35322985, -0.0048984354, 0.93552375, 1.5749707, 2.6497402, 3.443891)
+zoom_speed = null
+min_zoom = null
+max_zoom = null
+zoom_smoothness = null
+mouse_offset_strength = null
+mouse_smoothness = null
+max_rotation = null
+base_pitch = null
+
+[node name="Hud" parent="." instance=ExtResource("3_d68v5")]
+
+[node name="unit_zones" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5132201, 3.395649)
+
+[node name="unit_1" type="Node3D" parent="unit_zones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="unit_2" type="Node3D" parent="unit_zones"]
+
+[node name="unit_3" type="Node3D" parent="unit_zones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="enemy_zones" type="Node3D" parent="."]
+transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 0, 0.5132201, -3.391512)
+
+[node name="enemy_1" type="Node3D" parent="enemy_zones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+
+[node name="enemy_2" type="Node3D" parent="enemy_zones"]
+
+[node name="enemy_3" type="Node3D" parent="enemy_zones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="CombatManager" parent="." instance=ExtResource("5_y8h3g")]

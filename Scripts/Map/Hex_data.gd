@@ -10,3 +10,4 @@ class_name Hexdata
 @export var has_river: bool = false
 @export var has_addon: bool = false
 @export var is_flat: bool = false
+@export var has_player: bool = false

@@ -1,0 +1,209 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8wy6x6cfpoww"]
+
+[ext_resource type="Script" uid="uid://cdpg4n1s41vfb" path="res://Scripts/Combat/combat_hud.gd" id="1_l5ye5"]
+[ext_resource type="Script" uid="uid://bf866cde208fo" path="res://Scripts/UI/action_panel.gd" id="2_7ivax"]
+[ext_resource type="Script" uid="uid://dgpby0dhc8wlp" path="res://Scripts/UI/action_lineup.gd" id="3_w67ca"]
+
+[node name="Hud" type="Control" groups=["combat_hud"]]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l5ye5")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Turn" type="Label" parent="Hud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 8.0
+offset_right = 25.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Turn 1"
+
+[node name="Turn_Side" type="Label" parent="Hud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.5
+offset_top = 32.0
+offset_right = 44.5
+offset_bottom = 55.0
+grow_horizontal = 2
+text = "Player Turn"
+
+[node name="ActionPool" type="Label" parent="Hud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 112.0
+offset_right = 20.0
+offset_bottom = 135.0
+grow_horizontal = 2
+
+[node name="Unit Panel" type="Panel" parent="Hud"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -428.0
+offset_top = -236.0
+offset_right = -266.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Unit Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 216.0
+grow_horizontal = 2
+
+[node name="Name" type="Label" parent="Hud/Unit Panel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Stats" type="VBoxContainer" parent="Hud/Unit Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Vitality" type="Label" parent="Hud/Unit Panel/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Armor" type="Label" parent="Hud/Unit Panel/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Strength" type="Label" parent="Hud/Unit Panel/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Intelligence" type="Label" parent="Hud/Unit Panel/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="Agility" type="Label" parent="Hud/Unit Panel/VBoxContainer/Stats"]
+layout_mode = 2
+
+[node name="HPBar" type="ProgressBar" parent="Hud/Unit Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
+step = 1.0
+
+[node name="HPLabel" type="Label" parent="Hud/Unit Panel/VBoxContainer/HPBar"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 162.0
+offset_bottom = 25.0
+horizontal_alignment = 1
+
+[node name="Action Panel" type="Panel" parent="Hud"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -266.0
+offset_top = -235.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_7ivax")
+
+[node name="TabContainer" type="TabContainer" parent="Hud/Action Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="Attacks" type="Label" parent="Hud/Action Panel/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Hud/Action Panel/TabContainer/Attacks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Action Panel/TabContainer/Attacks/ScrollContainer"]
+layout_mode = 2
+
+[node name="Defensives" type="Label" parent="Hud/Action Panel/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Hud/Action Panel/TabContainer/Defensives"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Action Panel/TabContainer/Defensives/ScrollContainer"]
+layout_mode = 2
+
+[node name="Skills" type="Label" parent="Hud/Action Panel/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Hud/Action Panel/TabContainer/Skills"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Action Panel/TabContainer/Skills/ScrollContainer"]
+layout_mode = 2
+
+[node name="End Turn" type="Button" parent="Hud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = 56.0
+offset_right = 49.0
+offset_bottom = 87.0
+grow_horizontal = 2
+text = "Turn End"
+
+[node name="Action Lineup" type="Control" parent="Hud" groups=["action_queue_display"]]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 96.0
+offset_right = 20.0
+offset_bottom = 136.0
+grow_horizontal = 2
+script = ExtResource("3_w67ca")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/Action Lineup"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[connection signal="mouse_entered" from="Hud/Action Panel/TabContainer" to="." method="_on_tab_container_mouse_entered"]
+[connection signal="mouse_exited" from="Hud/Action Panel/TabContainer" to="." method="_on_tab_container_mouse_exited"]
+[connection signal="pressed" from="Hud/End Turn" to="." method="_on_end_turn_pressed"]

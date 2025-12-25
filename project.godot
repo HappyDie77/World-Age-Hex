@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/Global.gd"
 TimeManager="*res://Scripts/Map/Time_manager.gd"
+PlayerData="*res://Scripts/PlayerData.gd"
+
+[global_group]
+
+combat_hud=""
+action_queue_display=""
 
 [input]
 

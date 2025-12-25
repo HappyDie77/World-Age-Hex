@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://6g4ach6yn206"]
+[gd_scene load_steps=13 format=3 uid="uid://6g4ach6yn206"]
 
 [ext_resource type="PackedScene" uid="uid://c1dtdfg3q5cms" path="res://Scenes/Map/Procedurally Hex 2d.tscn" id="2_p7yu3"]
 [ext_resource type="PackedScene" uid="uid://c256ctxua2sky" path="res://Assets/Map/Hex Scenes/Environment 1.tscn" id="3_uk5l4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dwr4koi4angjy" path="res://Assets/Textures/Solidnoise.png" id="5_p7yu3"]
 [ext_resource type="Shader" uid="uid://bvaerqfvibqcc" path="res://Scripts/Shaders/Water.gdshader" id="6_uk5l4"]
 [ext_resource type="PackedScene" uid="uid://d1pku3rfyvmjt" path="res://Scenes/UI/hud.tscn" id="7_lf2k3"]
+[ext_resource type="PackedScene" uid="uid://bypn8eppsnev7" path="res://Scenes/Map/player_map.tscn" id="8_dao4b"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6boei"]
 top_radius = 100.0
@@ -48,6 +49,9 @@ map_radius = 25
 [node name="Camera" parent="." instance=ExtResource("4_lf2k3")]
 
 [node name="Time manager" parent="." instance=ExtResource("4_dao4b")]
+
+[node name="PlayerMap" parent="." instance=ExtResource("8_dao4b")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.558643, 0)
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
