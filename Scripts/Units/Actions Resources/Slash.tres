@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Action" load_steps=2 format=3 uid="uid://egc4s7v64xa7"]
+[gd_resource type="Resource" script_class="Action" load_steps=3 format=3 uid="uid://egc4s7v64xa7"]
 
 [ext_resource type="Script" uid="uid://cyfy8s7b2aluj" path="res://Scripts/Units/action.gd" id="1_d40b3"]
+[ext_resource type="Resource" uid="uid://dq8ep2qrpgw24" path="res://Scripts/Units/Actions Effects Resources/Burn.tres" id="1_qaw7k"]
 
 [resource]
 script = ExtResource("1_d40b3")
 name = "Slash"
 power = 10.0
+effect_logic = ExtResource("1_qaw7k")
 metadata/_custom_type_script = "uid://cyfy8s7b2aluj"

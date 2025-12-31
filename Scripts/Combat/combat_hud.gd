@@ -3,7 +3,7 @@ class_name CombatHUD
 
 @onready var turn: Label = $Hud/Turn
 @onready var turn_side: Label = $Hud/Turn_Side
-@onready var end_turn: Button = $"Hud/Buttons/End Turn"
+@onready var end_turn: Button = $"Hud/End Turn"
 
 @onready var unit_panel: Panel = $"Hud/Unit Panel"
 @onready var name_label: Label = $"Hud/Unit Panel/VBoxContainer/Name"
@@ -22,6 +22,7 @@ var selected_unit = null
 var selected_action = null
 
 signal action_selected(action: Action) # Use the same name as the panel for clarity, but the manager MUST listen to the HUD's signal.
+signal end_turn_requested
 
 func show_unit(unit: Unit, attacks: Array, defensives: Array, skills: Array):
 	if not unit:
@@ -83,27 +84,27 @@ func _ready() -> void:
 	action_panel.action_selected.connect(_on_action_selected)
 	action_panel.visible = false
 	unit_panel.visible = false
-	Global.turn_count = 1
-	turn.text = str("Turn ", Global.turn_count)
 
-	if Global.player_turn:
-		turn_side.text = str("Your Turn")
-	else:
-		turn_side.text = str("Enemy Turn")
-
-func _process(delta: float) -> void:
 	if Global.player_turn:
 		turn_side.text = str("Your Turn")
 	else:
 		turn_side.text = str("Enemy Turn")
 
 func _on_end_turn_pressed() -> void:
-	Global.turn_count += 1
-	Global.player_end = true
-	turn.text = str("Turn ", Global.turn_count)
+	# 2. CHANGE THIS FUNCTION
+	# Instead of modifying Global vars, just tell the Manager we are done.
+	# The Manager will tell us when to update the text later.
+	end_turn_requested.emit()
+	
+	# Optional: Disable the button so they can't click it twice
+	end_turn.disabled = true 
 
-func _on_color_rect_mouse_entered() -> void:
-	Global.actions_entered = true
-
-func _on_color_rect_mouse_exited() -> void:
-	Global.actions_entered = false
+# 3. ADD A HELPER TO UPDATE TEXT FROM MANAGER
+func update_turn_text(is_player_turn: bool, turn_count: int):
+	turn.text = "Turn " + str(turn_count)
+	if is_player_turn:
+		turn_side.text = "Player Phase"
+		end_turn.disabled = false # Re-enable button
+	else:
+		turn_side.text = "Enemy Phase"
+		end_turn.disabled = true

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActionEffect" load_steps=2 format=3 uid="uid://dq8ep2qrpgw24"]
+
+[ext_resource type="Script" uid="uid://bhbwlf7spj7dt" path="res://Scripts/Units/action_effects.gd" id="1_fmc5u"]
+
+[resource]
+script = ExtResource("1_fmc5u")
+effect_name = "Burn"
+amount = 5
+duration = 2
+metadata/_custom_type_script = "uid://bhbwlf7spj7dt"

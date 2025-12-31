@@ -8,6 +8,7 @@
 script = ExtResource("2_cvll0")
 unit_name = "Test_Unit_Ally"
 vitality = 15
+strength = 8
 intelligence = 3
 agility = 2
 default_attacks = Array[ExtResource("1_2m57x")]([ExtResource("2_uvoic")])

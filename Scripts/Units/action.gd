@@ -69,6 +69,7 @@ var current_cooldown: int = 0
 @export var status_effects: Array = []   # Array of Status instances
 @export var timing: Timing         # e.g., "On Hit", "Before Clash"
 @export var upgrade_unlock_lvl: int = 1
+@export var effect_logic: ActionEffect # Or use ActionEffect if you defined that class_name
 
 var owner: Object = null
 

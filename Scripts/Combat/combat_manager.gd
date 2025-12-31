@@ -44,15 +44,18 @@ var combat_hud: Control = null
 func _ready() -> void:
 	combat_hud = get_tree().get_first_node_in_group("combat_hud")
 	
-	# --- CRITICAL CONNECTION STEP ---
 	if combat_hud:
-		# Connect the correct signal name: 'action_selected'
 		combat_hud.action_selected.connect(_on_action_selected_from_hud) 
-		
-		# Link the UI's removal request to the Combat Manager's logic (Moved this from the bottom)
+		combat_hud.end_turn_requested.connect(_on_end_turn_pressed_from_hud)
+	else:
+		push_error("Combat HUD not found!")
+	
+	# --- Fix: Only connect this ONCE ---
+	if action_queue_ui:
 		action_queue_ui.remove_action_requested.connect(_on_remove_action_requested)
 	else:
-		push_error("Combat HUD not found in 'combat_hud' group. Cannot connect signals.")
+		push_error("Action Queue UI not found!")
+	# -----------------------------------
 	
 	# Placeholder: In a real game, this data comes from PlayerData/Global
 	var player_selection = [TEMPLATE_FACTION_MAPPING[Faction.ALLY].duplicate(), TEMPLATE_FACTION_MAPPING[Faction.ALLY].duplicate(), TEMPLATE_FACTION_MAPPING[Faction.ALLY].duplicate()]
@@ -60,9 +63,10 @@ func _ready() -> void:
 	
 	_initialize_battlefield(player_selection, enemy_selection)
 	start_turn()
-	
-	# Link the UI's removal request to the Combat Manager's logic
-	action_queue_ui.remove_action_requested.connect(_on_remove_action_requested)
+
+func _on_end_turn_pressed_from_hud():
+	if player_planning_phase:
+		end_player_turn()
 
 func _on_remove_action_requested(qi_to_remove: QueueItem):
 	# Only allow player actions to be removed during planning phase
@@ -123,33 +127,54 @@ func _spawn_units(templates: Array, slots: Array):
 # 2. TURN MANAGEMENT
 # ==============================================================================
 
+
 func start_turn():
 	turn_number += 1
-	action_pool = min(action_pool + 1, 10) # Simple rule: +1 action, max 10
+	action_pool = min(action_pool + 1, 10)
 	action_queue.clear()
+	_update_action_queue_display()
 	
-	# --- Execute Turn Start Effects (Rule Enforcement) ---
+	# Execute Start of Turn Effects
 	for unit in active_units:
-		# The Unit's data handles its own effects (e.g., DOT ticks, passive cooldowns)
-		unit.unit_data.on_turn_start(self) # Referee calls Unit's method
+		unit.unit_data.on_turn_start(self)
 		
 	player_planning_phase = true
+	
+	# Update UI Text explicitly
 	combat_hud.update_ui(turn_number, action_pool, Faction.ALLY)
+	combat_hud.update_turn_text(true, turn_number) # <-- Call the new HUD function
+	
 	print("\n--- TURN ", turn_number, ": Player Planning Phase ---")
 
 func end_player_turn():
 	if not player_planning_phase: return
 	player_planning_phase = false
 	
-	# 1. Add Enemy Actions to Queue
-	_plan_enemy_actions()
-	_update_action_queue_display() # <--- CALL HERE
+	# Update UI to show it's Enemy turn
+	combat_hud.update_turn_text(false, turn_number)
+	print("Player ended turn. Enemy thinking...")
 	
-	# 2. Resolve Combat
+	# 4. ADD A DELAY (The "Thinking" Phase)
+	# This waits 1 second so the player realizes the phase changed.
+	await get_tree().create_timer(1.0).timeout
+	
+	# --- Enemy Logic ---
+	_plan_enemy_actions()
+	_update_action_queue_display()
+	
+	# Wait another moment so player can see what the enemy queued
+	await get_tree().create_timer(1.0).timeout
+	
+	# --- Resolution ---
+	# Since _resolve_action_queue might take time (animations), 
+	# we might want to await it if you add animations later.
 	_resolve_action_queue()
 	
-	# 3. Cleanup and Next Turn
+	# --- Cleanup & Next Turn ---
 	_end_turn_cleanup()
+	
+	# Wait a moment before giving control back
+	await get_tree().create_timer(0.5).timeout
 	start_turn()
 
 
@@ -167,13 +192,16 @@ func _plan_enemy_actions():
 
 	for enemy in enemy_units:
 		var enemy_data = enemy.unit_data
-		if enemy_data.is_dead: continue
+		if enemy_data.get_is_dead(): continue
 		
 		# --- 1. Filter Available Offensive Actions ---
 		var available_attacks = enemy_data.attacks.filter(func(a): return a.current_cooldown <= 0)
+		var available_defensives = enemy_data.defensives.filter(func(d): return d.current_cooldown <= 0)
 		var available_skills = enemy_data.skills.filter(func(s): return s.current_cooldown <= 0)
 		
-		var all_offensive_actions: Array[Action] = available_attacks + available_skills
+		var all_offensive_actions: Array[Action] = available_attacks.duplicate() 
+		all_offensive_actions.append_array(available_skills)
+		var all_defensive_actions: Array[Action] = available_defensives
 		
 		if all_offensive_actions.is_empty():
 			print("Enemy ", enemy_data.name, " has no actions available.")
@@ -185,37 +213,35 @@ func _plan_enemy_actions():
 
 		if chosen_action and target_node:
 			# Enemy costs are often fixed or ignored for simple AI
-			queue_action(enemy, chosen_action, target_node, 0) 
+			queue_action(enemy, chosen_action, target_node, 0)
+			# --- 3. Cooldown Activation FIX ---
+			# Find the index of the action in the unit's attack list
+			var original_index = enemy_data.attacks.find(chosen_action)
 			
-			# --- 3. Immediate Cooldown Activation (Optional but good practice) ---
-			# NOTE: We operate on the CLONED action in the queue, but setting it on 
-			# the UNIT's array is safer for persistent cooldowns.
-			
-			# We must find the ORIGINAL action object on the unit to set its cooldown
-			var original_action = enemy_data.attacks.find(chosen_action)
-			if original_action:
-				original_action.current_cooldown = chosen_action.cooldown_max
+			if original_index != -1: # The action was found in attacks
+				# Use the index to get the actual Action resource
+				var original_action_resource: Action = enemy_data.attacks[original_index]
+				original_action_resource.current_cooldown = chosen_action.cooldown
 			else:
-				# Check skills list if it wasn't an attack
-				original_action = enemy_data.skills.find(chosen_action)
-				if original_action:
-					original_action.current_cooldown = chosen_action.cooldown_max
-			
-			print("Enemy ", enemy_data.name, " queues ", chosen_action.name, 
-				  " on ", target_node.unit_data.name, 
-				  ". CD set to ", chosen_action.cooldown_max)
+				# If not in attacks, find the index in skills list
+				original_index = enemy_data.skills.find(chosen_action)
+				
+				if original_index != -1: # The action was found in skills
+					# Use the index to get the actual Action resource
+					var original_action_resource: Action = enemy_data.skills[original_index]
+					original_action_resource.current_cooldown = chosen_action.cooldown
 
 func _update_action_queue_display():
+	var player_queue = action_queue.filter(func(qi): return qi.unit_node.unit_data.faction == Faction.ALLY)
 	if action_queue_ui:
-		# Pass the queue items to the HUD script for rendering
 		action_queue_ui.update_queue_display(action_queue)
 	
-	# Optional console log for verification
-	var log_string = "Queue: ["
-	for qi in action_queue:
-		log_string += qi.unit_node.unit_data.name + " (" + qi.action.name + "), "
-	log_string += "]"
-	print(log_string)
+		# Optional console log for verification
+		var log_string = "Queue: ["
+		for qi in action_queue:
+			log_string += qi.unit_node.unit_data.name + " (" + qi.action.name + "), "
+		log_string += "]"
+		print(log_string)
 
 func queue_action(unit_node: UnitNode, action_template: Action, target_node: UnitNode, cost: int) -> bool:
 	if action_pool < cost and unit_node.unit_data.faction == Faction.ALLY:
@@ -255,7 +281,7 @@ func _resolve_action_queue():
 		var qi: QueueItem = action_queue[i]
 		
 		# Check for canceled actions (e.g., unit died before action)
-		if qi.unit_node.unit_data.is_dead or not qi.action:
+		if qi.unit_node.unit_data.get_is_dead() or not qi.action:
 			continue
 			
 		print("\nResolving Action ", i + 1, ": ", qi.action.name, " by ", qi.unit_node.unit_data.name)
@@ -291,7 +317,6 @@ func _resolve_action_queue():
 		else:
 			# No interceptor, execute Attack/Skill directly
 			_resolve_offensive_action(qi, clash_outcome, target_node)
-			
 
 func _find_interceptor(offensive_qi: QueueItem, current_index: int) -> QueueItem:
 	# Rule: Check all subsequent actions in the queue for unconsumed Defensive actions
@@ -380,7 +405,7 @@ func _resolve_defensive_action(interceptor_qi: QueueItem, offensive_qi: QueueIte
 
 func _check_death(unit_node: UnitNode):
 	# Rule Enforcement: Check if HP <= 0
-	if unit_node.unit_data.is_dead:
+	if unit_node.unit_data.get_is_dead():
 		print("!!! ", unit_node.unit_data.name, " has been defeated. !!!")
 		active_units.erase(unit_node)
 		

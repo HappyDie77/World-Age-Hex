@@ -1,7 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr2darflvbxcg"]
+[gd_scene load_steps=7 format=3 uid="uid://cr2darflvbxcg"]
 
 [ext_resource type="StyleBox" uid="uid://blfjdc0hemxy2" path="res://Scenes/UI/Styles/action_slot_normal.tres" id="1_3tk73"]
 [ext_resource type="Script" uid="uid://mtsgp4iwah5t" path="res://Scripts/UI/action_slot.gd" id="1_ygk6m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygk6m"]
+bg_color = Color(0.50928617, 0.5092862, 0.509286, 0.09803922)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2iw22"]
+bg_color = Color(0.27387273, 0.27387273, 0.27387273, 0.5882353)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3kktq"]
+bg_color = Color(0.78352344, 0.78352344, 0.7835229, 0.5882353)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0vfn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Action Slot 1" type="Control"]
 layout_mode = 3
@@ -40,6 +64,25 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 
+[node name="Remove" type="Button" parent="Frame"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ygk6m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2iw22")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3kktq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y0vfn")
+
 [node name="ActionName" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -49,12 +92,14 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -24.0
 offset_top = -7.0
-offset_right = 24.0
+offset_right = 25.0
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
-autowrap_mode = 2
 horizontal_alignment = 1
+vertical_alignment = 1
